@@ -1,6 +1,7 @@
+import { Outlet } from "react-router"
 
 export const PublicRoutes = () => {
   return (
-    <div>PublicRoutes</div>
+    <Outlet/>
   )
 }
