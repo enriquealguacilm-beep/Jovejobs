@@ -6,6 +6,7 @@ import { PrivateRoutes } from "./PrivateRoutes"
 // Páginas públicas
 import { PublicLayout } from "../layouts/PublicLayout";
 const HomePage = lazy(() => import("../pages/PublicPages/HomePage/HomePage"));
+const RegisterCandidatePage  = lazy(() => import ("../pages/PublicPages/AuthPages/RegisterPage/RegisterCandidate/RegisterCandidatePage"));
 
 //Páginas privadas de candidato
 import { CandidateLayout } from "../layouts/CandidateLayout";
@@ -24,6 +25,7 @@ export const AppRoutes = () => {
             <Route element={<PublicRoutes/>}>
               <Route element={<PublicLayout/>}>
                 <Route path="/" element={<HomePage/>}/>
+                <Route path="/registerCandidate" element={<RegisterCandidatePage/>}/>
               </Route>
             </Route>
           {/* Rutas privadas user Candidato */}
