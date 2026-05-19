@@ -8,6 +8,8 @@
  import cors from 'cors';
  import { fileURLToPath } from 'url';
 
+ import authRouter from './modules/auth/auth.routes.js'
+
  const __filename = fileURLToPath(import.meta.url);
  const __dirname = path.dirname(__filename);
 
@@ -25,6 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
+
+app.use('/api/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -2,6 +2,8 @@ import {z} from 'zod';
 
 const passRegEx = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{6,}$/
 
+const numRegEx = /^\+?[0-9]{9,15}$/
+
 export const registerCandidateSchema = z.object({
   email: z
       .string({message:"Campo obligatorio"})
@@ -27,7 +29,8 @@ export const registerCandidateSchema = z.object({
       .max(100, {message:"Debe ser menor de 100 caracteres"})
       .trim(),
   phone_number: z
-      .number({message:"El teléfono introducido no es válido"})
+      .string({ message: "El teléfono introducido no es válido" })
+      .regex(numRegEx, { message: "El teléfono introducido no es válido" })
   
 }).refine((data) =>  data.email === data.repEmail, {
       message:"Los emails no coinciden",
