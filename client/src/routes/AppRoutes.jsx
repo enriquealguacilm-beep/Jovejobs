@@ -1,16 +1,18 @@
-import { Suspense } from "react"
+import { Suspense, lazy  } from "react"
 import { BrowserRouter, Route, Routes } from "react-router"
 import { PublicRoutes } from "./PublicRoutes"
 import { PrivateRoutes } from "./PrivateRoutes"
 
 // Páginas públicas
 import { PublicLayout } from "../layouts/PublicLayout";
+const HomePage = lazy(() => import("../pages/PublicPages/HomePage/HomePage"));
 
 //Páginas privadas de candidato
 import { CandidateLayout } from "../layouts/CandidateLayout";
 
 //Páginas privadas de candidato
 import { CompanyLayout } from "../layouts/CompanyLayout";
+
 
 
 export const AppRoutes = () => {
@@ -21,7 +23,7 @@ export const AppRoutes = () => {
           {/* Rutas públicas */}
             <Route element={<PublicRoutes/>}>
               <Route element={<PublicLayout/>}>
-                {/* <Route path .... */}
+                <Route path="/" element={<HomePage/>}/>
               </Route>
             </Route>
           {/* Rutas privadas user Candidato */}
