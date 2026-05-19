@@ -7,6 +7,7 @@ const router = express.Router();
 
 
 router.post('/registerCandidate', authController.registerCandidate);
+router.post('/registerCompany', authController.registerCompany);
 
 
 export default router;
