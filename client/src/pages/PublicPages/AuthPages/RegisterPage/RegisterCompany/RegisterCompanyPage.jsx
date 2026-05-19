@@ -50,7 +50,7 @@ const registerCompanyCompanyPage = () => {
       }
     }
   };
-
+.
   return (
     <div>
       <Form>
