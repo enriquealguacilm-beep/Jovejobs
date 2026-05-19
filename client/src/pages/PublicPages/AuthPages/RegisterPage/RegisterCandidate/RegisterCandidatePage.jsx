@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Button, Form} from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { validateForm } from '../../../../../helpers/ValidateForms';
 import { registerCandidateSchema } from '../../../../../schemas/RegisterCandidateSchema';
 import { fetchAxios } from '../../../../../helpers/axiosHelper';
@@ -19,7 +19,7 @@ const RegisterCandidatePage = () => {
 
   const [registerCandidate, setRegisterCandidate] = useState(initialValue);
   const [errorsVal, setErrorsVal] = useState();
-  const [otroError, setOtroError] = useState("")
+  const [otroError, setOtroError] = useState('');
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -40,8 +40,8 @@ const RegisterCandidatePage = () => {
 
       
     } catch (error) {
-      if (error.errType === "validator"){
-        console.log("errores de validación");
+      if (error.errType === 'validator') {
+        console.log('errores de validación');
         setErrorsVal(error);
        
       }else if (error.response.data.errno === 1062){
@@ -51,11 +51,12 @@ const RegisterCandidatePage = () => {
         setOtroError("Ha habido un error");
       }
     }
-  }
+  };
 
 
   return (
-     <Form>
+    <Form>
+            
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Correo electrónico*</Form.Label>
         <Form.Control 
@@ -66,6 +67,7 @@ const RegisterCandidatePage = () => {
             />
             {errorsVal?.email && <p className="errMsg">{errorsVal.email}</p>}
       </Form.Group>
+            
       <Form.Group className="mb-3" controlId="formBasicRepEmail">
         <Form.Label>Confirmar correo*</Form.Label>
         <Form.Control 
@@ -88,6 +90,7 @@ const RegisterCandidatePage = () => {
             />
             {errorsVal?.password && <p className="errMsg">{errorsVal.password}</p>}
       </Form.Group>
+            
       <Form.Group className="mb-3" controlId="formBasicRepPassword">
         <Form.Label>Confirmar contraseña*</Form.Label>
         <Form.Control 
@@ -99,6 +102,7 @@ const RegisterCandidatePage = () => {
             />
             {errorsVal?.repPassword && <p className="errMsg">{errorsVal.repPassword}</p>}
       </Form.Group>
+            
       <Form.Group className="mb-3" controlId="formBasicName">
         <Form.Label>Nombre*</Form.Label>
         <Form.Control 
@@ -109,6 +113,7 @@ const RegisterCandidatePage = () => {
             />
             {errorsVal?.name && <p className="errMsg">{errorsVal.name}</p>}
       </Form.Group>
+            
       <Form.Group className="mb-3" controlId="formBasicLastname">
         <Form.Label>Apellido(s)*</Form.Label>
         <Form.Control 
@@ -119,6 +124,7 @@ const RegisterCandidatePage = () => {
             />
             {errorsVal?.lastname && <p className="errMsg">{errorsVal.lastname}</p>}
       </Form.Group>
+            
       <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
         <Form.Label>Teléfono*</Form.Label>
         <Form.Control 
@@ -129,19 +135,22 @@ const RegisterCandidatePage = () => {
             />
             {errorsVal?.phone_number && <p className="errMsg">{errorsVal.phone_number}</p>}
       </Form.Group>
+            
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Acepto la política de Privacidad y los Términos y Condiciones" />
+                
+        <Form.Check
+          type="checkbox"
+          label="Acepto la política de Privacidad y los Términos y Condiciones"
+        />
+              
       </Form.Group>
       <p className="errMsg">{otroError}</p>
       <Button variant="primary" onClick={onSubmit}>
-        Crear Mi Cuenta
-      </Button>
-      <Button variant="primary">
-        Cancelar
+                Crear Mi Cuenta       
       </Button>
       <p>¿Ya estás registrado? <Link to='/login'>Login aquí</Link></p>
     </Form>
-  )
-}
+  );
+};
 
-export default RegisterCandidatePage
+export default RegisterCandidatePage;
