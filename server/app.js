@@ -41,4 +41,4 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500).json(err);
 });
 
-module.exports = app;
+export default app;
