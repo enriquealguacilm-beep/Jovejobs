@@ -6,7 +6,7 @@ const nifCifRegEx = /^[0-9XYZKLeL][0-9]{7}[A-Z0-9]$/;
 
 const numRegEx = /^\+?[0-9]{9,15}$/;
 
-export const registerCompanySchema = z
+export const RegisterCompanySchema = z
   .object({
     email: z
       .string({ message: 'Campo obligatorio' })
