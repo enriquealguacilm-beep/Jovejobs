@@ -18,7 +18,7 @@ const initialValue = {
   address: '',
 };
 
-const RegisterCompanyCompanyPage = () => {
+const RegisterCompanyPage = () => {
   const [registerCompany, setRegisterCompany] = useState(initialValue);
   const [errorsVal, setErrorsVal] = useState();
   const [otroErr, setOtroErr] = useState('');
@@ -56,8 +56,8 @@ const onSubmit = async () => {
 
 
   return (
-    <div>
-      <Form>
+    <div className='d-flex justify-content-center mt-5'>
+      <Form className="w-25 border border-1 rounded-2 p-4">
         <Form.Group className="mb-3" controlId="formBasicCompanyTitle">
           <Form.Label>Nombre de la empresa (razón social)*</Form.Label>
           <Form.Control
@@ -185,4 +185,4 @@ const onSubmit = async () => {
   );
 };
 
-export default RegisterCompanyCompanyPage;
+export default RegisterCompanyPage;
