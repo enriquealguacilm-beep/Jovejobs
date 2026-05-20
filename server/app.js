@@ -6,15 +6,12 @@ import logger from 'morgan';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 
- import dotenv from 'dotenv';
- dotenv.config();
+import dotenv from 'dotenv';
+dotenv.config();
 
- import authRouter from './modules/auth/auth.routes.js'
-
- const __filename = fileURLToPath(import.meta.url);
- const __dirname = path.dirname(__filename);
-
-
+import authRouter from './modules/auth/auth.routes.js'
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
