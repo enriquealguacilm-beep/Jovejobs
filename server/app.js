@@ -6,9 +6,6 @@ import logger from 'morgan';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 
-//importo las rutas de auth
-import authRouter from './modules/auth/auth.routes.js';
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -24,6 +21,8 @@ app.use('/api/auth', authRouter);
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
+
+app.use('/api/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -13,6 +13,10 @@ const RegisterCandidatePage = lazy(
 const LoginPage = lazy(
   () => import('../pages/PublicPages/AuthPages/LoginPage/LoginPage')
 );
+const RegisterCompanyPage = lazy(
+  () =>
+    import('../pages/PublicPages/AuthPages/RegisterPage/RegisterCompany/RegisterCompanyPage')
+);
 
 //Páginas privadas de candidato
 import { CandidateLayout } from '../layouts/CandidateLayout';
@@ -32,6 +36,10 @@ export const AppRoutes = () => {
               <Route
                 path="/registerCandidate"
                 element={<RegisterCandidatePage />}
+              />
+              <Route
+                path="/registerCompany"
+                element={<RegisterCompanyPage />}
               />
               <Route path="/login" element={<LoginPage />} />
             </Route>
