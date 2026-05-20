@@ -17,12 +17,13 @@ class AuthController {
 
   registerCompany = async(req, res) => {
     try {
-      const {name, identification, email, password, phone_number, contact, address} = req.body;
+      const {company_title, identification, email, password, phone_number, name, lastname, address} = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
-      let values = [name, identification, email, password, phone_number, contact, address, 2];
+      let values = [company_title, identification, email, hashedPassword, phone_number, name, lastname, address, 2];
       const result = await authDal.registerCompany(values);
+      res.status(200).json('register ok');
     } catch (error) {
-      res.status(200).json(error);
+      res.status(500).json(error);
     }
   }
 }

@@ -17,10 +17,10 @@ class AuthDal {
 
   registerCompany = async(values) => {
     try {
-      let sql = 'INSERT INTO user (company_title, dni_cif, email, password, phone_number, address, type) VALUES (?,?,?,?,?,?,?)';
+      let sql = 'INSERT INTO user (company_title, dni_cif, email, password, phone_number, name, lastname, address, type) VALUES (?,?,?,?,?,?,?,?,?)';
       return await executeQuery(sql, values);
     } catch (error) {
-      
+      throw error;
     }
   }
 
