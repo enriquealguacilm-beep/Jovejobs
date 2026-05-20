@@ -1,6 +1,7 @@
 import React from 'react';
 
-export const Button = ({ children, onClick, variant="primary"  }) => {
+export const ButtonJJ = ({ children, onClick, variant="jj-primary"  }) => {
+
   return (
     <button className={`btn btn--${variant}`} onClick={onClick}>
       {children}

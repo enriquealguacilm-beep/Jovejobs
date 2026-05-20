@@ -6,6 +6,9 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [token, setToken] = useState();
 
+  console.log(user);
+  
+
   useEffect(() => {
     // 1. Miramos si hay un token guardado de antes
     const tokenLS = localStorage.getItem('token');

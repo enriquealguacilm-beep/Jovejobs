@@ -16,6 +16,8 @@ const initialValue = {
   lastname: '',
   phone_number: '',
   address: '',
+  type: 2,
+  terms: false
 };
 
 const RegisterCompanyPage = () => {
@@ -27,8 +29,8 @@ const RegisterCompanyPage = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setRegisterCompany({ ...registerCompany, [name]: value });
+    const { name, value ,type, checked} = e.target;
+    setRegisterCompany({ ...registerCompany,  [name]: type === "checkbox" ? checked: value});
   };
 
 
@@ -37,9 +39,10 @@ const onSubmit = async () => {
   setOtroErr('');
   try {
     validateForm(RegisterCompanySchema, registerCompany);
-    let url = '/auth/registerCompany';
+    let url = '/auth/registerCandidate';
     let res = await fetchAxios(url, 'POST', registerCompany);
     console.log(res);
+    navigate('/login');
   } catch (error) {
     console.log('Otro tipo', error.response);
     // console.log('Error completo:', error);
@@ -66,6 +69,9 @@ const onSubmit = async () => {
             onChange={handleChange}
             name="company_title"
           />
+          {errorsVal?.company_title && (
+            <p className="errMsg">{errorsVal.company_title}</p>
+          )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicIdentificacion">
           <Form.Label>NIF/CIF*</Form.Label>
@@ -111,8 +117,8 @@ const onSubmit = async () => {
             onChange={handleChange}
             name="password"
           />
-          {errorsVal?.repEmail && (
-            <p className="errMsg">{errorsVal.repEmail}</p>
+          {errorsVal?.password && (
+            <p className="errMsg">{errorsVal.password}</p>
           )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicRepPassword">
@@ -137,6 +143,9 @@ const onSubmit = async () => {
             onChange={handleChange}
             name="name"
           />
+          {errorsVal?.name && (
+            <p className="errMsg">{errorsVal.name}</p>
+          )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Apellidos de persona de contacto</Form.Label>
@@ -147,6 +156,9 @@ const onSubmit = async () => {
             onChange={handleChange}
             name="lastname"
           />
+          {errorsVal?.lastname && (
+            <p className="errMsg">{errorsVal.lastname}</p>
+          )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPhone_Number">
           <Form.Label>Número de teléfono*</Form.Label>
@@ -157,7 +169,7 @@ const onSubmit = async () => {
             onChange={handleChange}
             name="phone_number"
           />
-          {errorsVal?.phone && <p className="errMsg">{errorsVal.phone}</p>}
+          {errorsVal?.phone_number && <p className="errMsg">{errorsVal.phone_number}</p>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicAdress">
           <Form.Label>Dirección fiscal*</Form.Label>
@@ -174,6 +186,9 @@ const onSubmit = async () => {
           <Form.Check
             type="checkbox"
             label="Acepto la Política de Privacidad y los Términos y Condiciones"
+            name='terms'
+            checked={registerCompany.terms}
+            onChange={handleChange}
           />
         </Form.Group>
         <p>{otroErr}</p>

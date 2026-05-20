@@ -3,6 +3,8 @@ import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router';
 import { fetchAxios } from '../../../../helpers/axiosHelper.js';
 import { AuthContext } from '../../../../context/AuthContext.js';
+import { validateForm } from '../../../../helpers/ValidateForms.js';
+import { RegisterLoginSchema } from '../../../../schemas/RegisterLoginSchema.js';
 const initialValue = {
   email: '',
   password: '',
@@ -10,6 +12,7 @@ const initialValue = {
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState(initialValue);
+  const [errorsVal, setErrorsVal] = useState();
   const [errLogin, setErrLogin] = useState('');
 
   const { setUser, setToken } = useContext(AuthContext);
@@ -25,7 +28,9 @@ const LoginPage = () => {
 
   const onSubmit = async () => {
     setErrLogin('');
+    setErrorsVal('');
     try {
+      validateForm(RegisterLoginSchema, loginData);
       let url = '/auth/login';
       let res = await fetchAxios(url, 'POST', loginData);
 
@@ -59,6 +64,10 @@ const LoginPage = () => {
       console.log(error.response);
       if (error.status === 401) {
         setErrLogin(error.response.data.message);
+      } else if (error.errType === 'validator'){
+        console.log(error);
+        setErrorsVal(error);
+        
       } else {
         setErrLogin('Ups, ha habido algun error');
       }
@@ -77,6 +86,7 @@ const LoginPage = () => {
             value={loginData.email}
             onChange={handleChange}
           />
+          {errorsVal?.email && <p className="errMsg">{errorsVal.email}</p>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
@@ -87,6 +97,7 @@ const LoginPage = () => {
             value={loginData.password}
             onChange={handleChange}
           />
+          {errorsVal?.password && <p className="errMsg">{errorsVal.password}</p>}
         </Form.Group>
         <p>{errLogin}</p>
         <div className="d-flex gap-2 ">
