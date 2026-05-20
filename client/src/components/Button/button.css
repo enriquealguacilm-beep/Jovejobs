@@ -1,0 +1,25 @@
+.btn {
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: var(--padding-buttons);
+  font-size: 1rem;
+  cursor: pointer;
+
+  &.btn-primary {
+    background-color: var(--btn-color-1);
+    color: var(--text-ligth);
+
+    &:hover {
+      background-color: var(--btn-color-dark);
+    }
+  }
+
+  &.btn-secondary {
+    color: var(--text-dark);
+    border: 1px solid var(--btn-color-dark);
+
+    &:hover {
+      background-color: var(--btn-color-dark);
+    }
+  }
+}
