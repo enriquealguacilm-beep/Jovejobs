@@ -3,16 +3,19 @@ import {Button, Form} from 'react-bootstrap';
 import { validateForm } from '../../../../../helpers/ValidateForms';
 import { registerCandidateSchema } from '../../../../../schemas/RegisterCandidateSchema';
 import { fetchAxios } from '../../../../../helpers/axiosHelper';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const initialValue = {
+
   email: "",
   repEmail:"",
   password: "",
   repPassword: "",
   name: "",
   lastname: "",
-  phone_number: ""
+  phone_number: "",
+  type: 3,
+  terms: false
 }
 
 const RegisterCandidatePage = () => {
@@ -21,9 +24,11 @@ const RegisterCandidatePage = () => {
   const [errorsVal, setErrorsVal] = useState();
   const [otroError, setOtroError] = useState("")
 
+const navigate = useNavigate();
+
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setRegisterCandidate({...registerCandidate, [name]:value});
+    const {name, value, type, checked} = e.target;
+    setRegisterCandidate({...registerCandidate, [name]: type === "checkbox" ? checked: value});
   }
 
   const onSubmit = async() => {
@@ -35,7 +40,7 @@ const RegisterCandidatePage = () => {
       let url = "/auth/registerCandidate";
       let res = await fetchAxios(url,"POST",registerCandidate);
       console.log(res);
-
+      navigate('/login');
 
 
 
@@ -134,7 +139,13 @@ const RegisterCandidatePage = () => {
             {errorsVal?.phone_number && <p className="errMsg">{errorsVal.phone_number}</p>}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Acepto la política de Privacidad y los Términos y Condiciones" />
+        <Form.Check 
+            type="checkbox" 
+            label="Acepto la política de Privacidad y los Términos y Condiciones" 
+            name='terms'
+            checked={registerCandidate.terms}
+            onChange={handleChange}/>
+            {errorsVal?.terms && <p className="errMsg">{errorsVal.terms}</p>}
       </Form.Group>
       <p className="errMsg">{otroError}</p>
       <Button variant="primary" onClick={onSubmit}>

@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
-
  import dotenv from 'dotenv';
  dotenv.config();
 
