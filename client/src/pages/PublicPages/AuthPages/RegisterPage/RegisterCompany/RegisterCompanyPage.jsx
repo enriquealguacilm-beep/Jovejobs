@@ -66,6 +66,9 @@ const onSubmit = async () => {
             onChange={handleChange}
             name="company_title"
           />
+          {errorsVal?.company_title && (
+            <p className="errMsg">{errorsVal.company_title}</p>
+          )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicIdentificacion">
           <Form.Label>NIF/CIF*</Form.Label>
@@ -111,8 +114,8 @@ const onSubmit = async () => {
             onChange={handleChange}
             name="password"
           />
-          {errorsVal?.repEmail && (
-            <p className="errMsg">{errorsVal.repEmail}</p>
+          {errorsVal?.password && (
+            <p className="errMsg">{errorsVal.password}</p>
           )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicRepPassword">
@@ -137,6 +140,9 @@ const onSubmit = async () => {
             onChange={handleChange}
             name="name"
           />
+          {errorsVal?.name && (
+            <p className="errMsg">{errorsVal.name}</p>
+          )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Apellidos de persona de contacto</Form.Label>
@@ -147,6 +153,9 @@ const onSubmit = async () => {
             onChange={handleChange}
             name="lastname"
           />
+          {errorsVal?.lastname && (
+            <p className="errMsg">{errorsVal.lastname}</p>
+          )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPhone_Number">
           <Form.Label>Número de teléfono*</Form.Label>
@@ -157,7 +166,7 @@ const onSubmit = async () => {
             onChange={handleChange}
             name="phone_number"
           />
-          {errorsVal?.phone && <p className="errMsg">{errorsVal.phone}</p>}
+          {errorsVal?.phone_number && <p className="errMsg">{errorsVal.phone_number}</p>}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicAdress">
           <Form.Label>Dirección fiscal*</Form.Label>

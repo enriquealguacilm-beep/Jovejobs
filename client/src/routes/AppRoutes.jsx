@@ -52,7 +52,9 @@ export const AppRoutes = () => {
           </Route>
           {/* Rutas privadas user Empresa */}
           <Route element={<PrivateRoutes />}>
-            <Route element={<CompanyLayout />}>{/* <Route path .... */}</Route>
+            <Route element={<CompanyLayout />}>{
+              // <Route path='/company' element={}/>
+            }</Route>
           </Route>
         </Routes>
       </Suspense>
