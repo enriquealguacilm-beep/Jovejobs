@@ -23,6 +23,7 @@ import { CandidateLayout } from '../layouts/CandidateLayout';
 
 //Páginas privadas de candidato
 import { CompanyLayout } from '../layouts/CompanyLayout';
+import CandidateProfilePage from '../pages/UserPages/CandidateProfilePage/CandidateProfilePage';
 
 export const AppRoutes = () => {
   return (
@@ -47,7 +48,7 @@ export const AppRoutes = () => {
           {/* Rutas privadas user Candidato */}
           <Route element={<PrivateRoutes />}>
             <Route element={<CandidateLayout />}>
-              {/* <Route path .... */}
+              {<Route path='/candidateProfile' element={<CandidateProfilePage />} />}
             </Route>
           </Route>
           {/* Rutas privadas user Empresa */}
