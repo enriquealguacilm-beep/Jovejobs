@@ -16,6 +16,8 @@ const initialValue = {
   lastname: '',
   phone_number: '',
   address: '',
+  type: 2,
+  terms: false
 };
 
 const RegisterCompanyPage = () => {
@@ -27,8 +29,8 @@ const RegisterCompanyPage = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setRegisterCompany({ ...registerCompany, [name]: value });
+    const { name, value ,type, checked} = e.target;
+    setRegisterCompany({ ...registerCompany,  [name]: type === "checkbox" ? checked: value});
   };
 
 
@@ -37,9 +39,10 @@ const onSubmit = async () => {
   setOtroErr('');
   try {
     validateForm(RegisterCompanySchema, registerCompany);
-    let url = '/auth/registerCompany';
+    let url = '/auth/registerCandidate';
     let res = await fetchAxios(url, 'POST', registerCompany);
     console.log(res);
+    navigate('/login');
   } catch (error) {
     console.log('Otro tipo', error.response);
     // console.log('Error completo:', error);
@@ -174,6 +177,9 @@ const onSubmit = async () => {
           <Form.Check
             type="checkbox"
             label="Acepto la Política de Privacidad y los Términos y Condiciones"
+            name='terms'
+            checked={registerCompany.terms}
+            onChange={handleChange}
           />
         </Form.Group>
         <p>{otroErr}</p>
