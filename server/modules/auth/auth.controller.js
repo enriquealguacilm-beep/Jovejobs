@@ -45,7 +45,7 @@ class AuthController {
       const result = await authDal.userById(user_id);
 
       if (!result.length) {
-        return res.status(404).json({ message: 'Usuario no encontrado' });
+        return res.status(500).json({ message: 'Usuario no encontrado' });
       }
 
       const user = {
@@ -67,33 +67,18 @@ class AuthController {
       res.status(500).json({ message: 'Error interno del servidor', error });
     }
   };
-  registerCandidate = async (req, res) => {
+  register = async (req, res) => {
     try {
-      const { name, lastname, email, password, phone_number } = req.body;
+      const { name, lastname, email, password, phone_number,company_title, identification, address, type} = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
-      let values = [name, lastname, email, hashedPassword, phone_number, 3];
-      const result = await authDal.registerCandidate(values);
-      sendEmail(email, name, lastname);
-      res.status(200).json({message: 'Usuario registrado corréctamente'});
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  };
 
-  registerCompany = async (req, res) => {
-    try {
-      const {
-        company_title,
-        identification,
-        email,
-        password,
-        phone_number,
-        name,
-        lastname,
-        address,
-      } = req.body;
-      const hashedPassword = await bcrypt.hash(password, 10);
-      let values = [
+      let values;
+      if (type === 3){
+         values = [name, lastname, email, hashedPassword, phone_number,type];
+        
+      }
+      else if (type === 2) {
+        values = [
         company_title,
         identification,
         email,
@@ -102,14 +87,17 @@ class AuthController {
         name,
         lastname,
         address,
-        2,
+        type
       ];
-      const result = await authDal.registerCompany(values);
-      res.status(200).json('register ok');
+    }
+      const result = await authDal.register(values,type);
+      res.status(200).json({message: 'Usuario registrado corréctamente'});
     } catch (error) {
       res.status(500).json(error);
     }
   };
+
+  
 }
 
 export default new AuthController();
