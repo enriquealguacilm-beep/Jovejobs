@@ -43,6 +43,8 @@ export const RegisterCompanySchema = z
         message: 'El documento debe tener exactamente 9 carácteres',
       })
       .regex(nifCifRegEx, { message: 'Formato no válido' }),
+    terms: z
+    .literal(true, {message:"Debes aceptar la política de privacidad y los términos y condiciones"})
   })
   .refine((data) => data.email === data.repEmail, {
     message: 'Los emails no coinciden',
