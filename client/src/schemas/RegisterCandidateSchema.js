@@ -30,7 +30,9 @@ export const registerCandidateSchema = z.object({
       .trim(),
   phone_number: z
       .string({ message: "El teléfono introducido no es válido" })
-      .regex(numRegEx, { message: "El teléfono introducido no es válido" })
+      .regex(numRegEx, { message: "El teléfono introducido no es válido" }),
+  terms: z
+      .literal(true, {message:"Debes aceptar la política de privacidad y los términos y condiciones"})
   
 }).refine((data) =>  data.email === data.repEmail, {
       message:"Los emails no coinciden",
