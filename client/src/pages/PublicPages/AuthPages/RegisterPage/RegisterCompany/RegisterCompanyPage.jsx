@@ -6,13 +6,14 @@ import { validateForm } from '../../../../../helpers/ValidateForms.js';
 import { fetchAxios } from '../../../../../helpers/axiosHelper.js';
 
 const initialValue = {
-  name: '',
+  company_title: '',
   identification: '',
   email: '',
   repEmail: '',
   password: '',
   repPassword: '',
-  contact: '',
+  name: '',
+  lastname: '',
   phone_number: '',
   address: '',
 };
@@ -21,7 +22,8 @@ const RegisterCompanyCompanyPage = () => {
   const [registerCompany, setRegisterCompany] = useState(initialValue);
   const [errorsVal, setErrorsVal] = useState();
   const [otroErr, setOtroErr] = useState('');
-
+  console.log(registerCompany);
+  
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,29 +31,26 @@ const RegisterCompanyCompanyPage = () => {
     setRegisterCompany({ ...registerCompany, [name]: value });
   };
 
-  // 1. Añade el parámetro 'e' aquí arriba
-const onSubmit = async (e) => {
-  // 2. Esta línea es CRUCIAL: detiene la recarga y evita el fallo de React Router
-  if (e && e.preventDefault) e.preventDefault();
 
+const onSubmit = async () => {
   setErrorsVal({});
   setOtroErr('');
   try {
     validateForm(RegisterCompanySchema, registerCompany);
-
-    let url = '/api/auth/registerCompany';
+    let url = '/auth/registerCompany';
     let res = await fetchAxios(url, 'POST', registerCompany);
     console.log(res);
   } catch (error) {
     console.log('Otro tipo', error.response);
-    if (error.errType === 'validator') {
-      console.log(error);
-      setErrorsVal(error);
-    } else if (error.response && error.response.data && error.response.data.errno === 1062) {
-      setOtroErr('Email duplicado');
-    } else {
-      setOtroErr('Ups, ha habido un error');
-    }
+    // console.log('Error completo:', error);
+      if (error.errType === 'validator') {
+        console.log(error);
+        setErrorsVal(error);
+      } else if (error.response.data.errno === 1062) {
+        setOtroErr('Email duplicado');
+      } else {
+        setOtroErr('Ups, ha habido un error');
+      }
   }
 };
 
@@ -59,13 +58,13 @@ const onSubmit = async (e) => {
   return (
     <div>
       <Form>
-        <Form.Group className="mb-3" controlId="formBasicName">
+        <Form.Group className="mb-3" controlId="formBasicCompanyTitle">
           <Form.Label>Nombre de la empresa (razón social)*</Form.Label>
           <Form.Control
             type="text"
-            value={registerCompany.name}
+            value={registerCompany.company_title}
             onChange={handleChange}
-            name="name"
+            name="company_title"
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicIdentificacion">
@@ -84,7 +83,7 @@ const onSubmit = async (e) => {
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email*</Form.Label>
           <Form.Control
-            type="email"
+            type="text"
             placeholder="Enter email"
             value={registerCompany.Email}
             onChange={handleChange}
@@ -92,14 +91,14 @@ const onSubmit = async (e) => {
           />
           {errorsVal?.email && <p className="errMsg">{errorsVal.email}</p>}
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email*</Form.Label>
+        <Form.Group className="mb-3" controlId="formBasicRepEmail">
+          <Form.Label>Repetir Email*</Form.Label>
           <Form.Control
-            type="email"
+            type="text"
             placeholder="Enter email"
             value={registerCompany.repEmail}
             onChange={handleChange}
-            name="RepEmail"
+            name="repEmail"
           />
           {errorsVal?.repEmail && <p className="errMsg">{errorsVal.repEmail}</p>}
         </Form.Group>
@@ -129,17 +128,27 @@ const onSubmit = async (e) => {
             <p className="errMsg">{errorsVal.repPassword}</p>
           )}
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicContact">
+        <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Nombre de persona de contacto</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter contacto"
-            value={registerCompany.contact}
+            value={registerCompany.name}
             onChange={handleChange}
-            name="contact"
+            name="name"
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicTelefono">
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Apellidos de persona de contacto</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter contacto"
+            value={registerCompany.lastname}
+            onChange={handleChange}
+            name="lastname"
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPhone_Number">
           <Form.Label>Número de teléfono*</Form.Label>
           <Form.Control
             type="text"
@@ -150,11 +159,11 @@ const onSubmit = async (e) => {
           />
           {errorsVal?.phone && <p className="errMsg">{errorsVal.phone}</p>}
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicAdress">
           <Form.Label>Dirección fiscal*</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter email"
+            placeholder="Enter address"
             value={registerCompany.address}
             onChange={handleChange}
             name="address"
@@ -167,6 +176,7 @@ const onSubmit = async (e) => {
             label="Acepto la Política de Privacidad y los Términos y Condiciones"
           />
         </Form.Group>
+        <p>{otroErr}</p>
         <Button variant="primary" onClick={onSubmit}>
           Submit
         </Button>
