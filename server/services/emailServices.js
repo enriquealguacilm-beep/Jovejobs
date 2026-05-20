@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport(
   {
@@ -31,4 +31,4 @@ const sendEmail = (email, name, lastname) => {
   );
 };
 
-module.exports = sendEmail;
+export default sendEmail;
