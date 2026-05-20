@@ -6,14 +6,29 @@ const transporter = nodemailer.createTransport(
     port: 587,
     secure: false,
     auth: {
-      user: '',
-      pass: process.env.EMAIL,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_KEY,
     },
   }
 );
 
 const sendEmail = (email, name, lastname) => {
-  const emailText = ``;
+  const emailText = `<!doctype html>
+                      <html lang="es">
+                        <head>
+                          <meta charset="UTF-8" />
+                        </head>
+                        <body>
+                          <main>
+                            <h1>Bienvenid@ ${name} ${lastname} a JoveJobs</h1>
+                            <h3>Tu cuenta con el email ${email} ha sido creada correctamente</h3>
+                            <p>Gracias por registrarte en nuestra plataforma.</p>
+                          </main>
+                        </body>
+                      </html>`;
+  // !TODO a falta de meter el link para validar
+  const emailSubject = `Bienvenido a JoveJobs ${name}`;
+  const emailTextPlain = `Bienvenid@ ${name} ${lastname} a JoveJobs. Tu cuenta ha sido creada correctamente.`;
 
   transporter
     .verify()
@@ -22,10 +37,10 @@ const sendEmail = (email, name, lastname) => {
 
   transporter.sendMail(
     {
-      from: 'x <email>',
+      from: `JoveJobs <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'x',
-      text: 'x',
+      subject: emailSubject,
+      text: emailTextPlain,
       html: emailText,
     }
   );
