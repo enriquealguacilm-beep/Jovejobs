@@ -24,8 +24,6 @@ const LoginPage = () => {
     setLoginData({ ...loginData, [name]: value });
   };
 
-  console.log('LOGIN DATA:', loginData);
-
   const onSubmit = async () => {
     setErrLogin('');
     setErrorsVal('');
@@ -47,27 +45,24 @@ const LoginPage = () => {
       // Aquí lo llevaremos al perfil según el tipo que sea.
       // De momento lo llevamos al HomePage
 
-      // const userType = resUser.data.user.type;
+      const userType = resUser.data.user.type;
 
-      // if (userType === 1) {
-      //   navigate('/admin');
-      // } else if (userType === 2) {
-      //   navigate('/company-profile');
-      // } else if (userType === 3) {
-      //   navigate('/candidate-profile');
-      // } else {
-      //   navigate('/');
-      // }
-
-      navigate('/');
+      if (userType === 1) {
+        navigate('/admin');
+      } else if (userType === 2) {
+        navigate('/companyProfile');
+      } else if (userType === 3) {
+        navigate('/candidateProfile');
+      } else {
+        navigate('/');
+      }
     } catch (error) {
       console.log(error.response);
       if (error.status === 401) {
         setErrLogin(error.response.data.message);
-      } else if (error.errType === 'validator'){
+      } else if (error.errType === 'validator') {
         console.log(error);
         setErrorsVal(error);
-        
       } else {
         setErrLogin('Ups, ha habido algun error');
       }
@@ -97,7 +92,9 @@ const LoginPage = () => {
             value={loginData.password}
             onChange={handleChange}
           />
-          {errorsVal?.password && <p className="errMsg">{errorsVal.password}</p>}
+          {errorsVal?.password && (
+            <p className="errMsg">{errorsVal.password}</p>
+          )}
         </Form.Group>
         <p>{errLogin}</p>
         <div className="d-flex gap-2 ">
