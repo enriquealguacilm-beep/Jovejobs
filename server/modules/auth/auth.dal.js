@@ -45,7 +45,14 @@ class AuthDal {
     }
   };
 
-  
+  activateUser = async (id) => {
+    try {
+      let sql = 'UPDATE user SET is_validated = 1 WHERE user_id = ?'; 
+      return await executeQuery(sql, [id]);
+    } catch (error) {
+      throw error;
+    }
+  };  
 }
 
 export default new AuthDal();

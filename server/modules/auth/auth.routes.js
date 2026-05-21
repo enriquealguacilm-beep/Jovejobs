@@ -9,5 +9,6 @@ router.get('/userById', verifyToken, authController.userById);
 
 router.post('/registerCandidate', authController.register);
 router.post('/registerCompany', authController.register);
+router.get('/activate/:token', authController.activateUser);
 
 export default router;

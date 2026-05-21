@@ -1,9 +1,10 @@
 import { executeQuery } from '../../config/db.js';
 import bcrypt from 'bcrypt';
 import authDal from './auth.dal.js';
-import sendEmail from '../../services/emailServices.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import sendEmail from '../../services/emailServices.js';
+import { welcomeTemplate } from '../../services/templates.js';
 
 dotenv.config();
 
@@ -91,11 +92,41 @@ class AuthController {
       ];
     }
       const result = await authDal.register(values,type);
+
+      //Generar un token para el link de activación de la cuenta
+          const token = jwt.sign(
+            { id: result.insertId },
+            process.env.SECRET_KEY,
+            { expiresIn: '24h' }
+          );
+      let activateLink = `${process.env.SERVER_URL}/auth/activate/${token}`
+
+      await sendEmail(email, welcomeTemplate(email, name, lastname, activateLink));
       res.status(200).json({message: 'Usuario registrado corréctamente'});
-    } catch (error) {
+    } catch (error) {    
       res.status(500).json(error);
     }
+
+    
   };
+
+  activateUser = async (req,res) => {
+    try {
+      const { token }  = req.params;
+      const payload = jwt.verify(token, process.env.SECRET_KEY);
+      const { id } = payload;
+
+      const result = await authDal.activateUser(id);
+
+      res.status(200).json({ message: 'Cuenta activada correctamente' });
+    } catch (error) {
+      console.log(error);
+      
+      res.status(500).json(error);
+    }
+
+
+  }
 
   
 }
