@@ -56,12 +56,7 @@ export const AppRoutes = () => {
           {/* Rutas privadas user Candidato */}
           <Route element={<PrivateRoutes />}>
             <Route element={<CandidateLayout />}>
-              {
-                <Route
-                  path="/candidateProfile/:id"
-                  element={<CandidateProfilePage />}
-                />
-              }
+              <Route path='/candidateProfile/:id' element={<CandidateProfilePage />} />
             </Route>
           </Route>
           {/* Rutas privadas user Empresa */}
