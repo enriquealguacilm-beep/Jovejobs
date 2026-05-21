@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 :root {
   /* Navbar */
   --font-color-navbar: #1c1c1c;
@@ -17,7 +13,7 @@
   --text-status-applied: #00ddff;
 
   /* Font colors */
-  --text-ligth: #f6f9fc;
+  --text-light: #f6f9fc;
   --text-dark: #1c1c1c;
   --text-color-3: #fc3fd9;
   --text-color-4: #00ddff;
@@ -28,12 +24,31 @@
 
   /* Backgrounds */
   --bg-glass: rgba(255, 255, 255, 0.25);
-  --bg-ligth: #f6f9fc;
+  --bg-light: #f6f9fc;
   --bg-dark: #1c1c1c;
   --bg-candidate: #00ddff;
   --bg-company: #6c2dea;
   --bg-admin: #13ce66;
   --bg-offers: #f9a749;
+
+  /* Gradients backgrounds */
+  --gradient-candidate:
+    linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+    linear-gradient(
+      to top,
+      var(--bg-candidate),
+      var(--bg-ligth),
+      var(--bg-ligth)
+    );
+  --gradient-company:
+    linear-gradient(rgba(255, 255, 255, 0.4)),
+    linear-gradient(to top, var(--bg-company), var(--bg-ligth), var(--bg-ligth));
+  --gradient-admin:
+    linear-gradient(rgba(255, 255, 255, 0.5)),
+    linear-gradient(to top, var(--bg-admin), var(--bg-ligth), var(--bg-ligth));
+  --gradient-offers:
+    linear-gradient(rgba(255, 255, 255, 0.4)),
+    linear-gradient(to top, var(--bg-offers), var(--bg-ligth), var(--bg-ligth));
 
   /* Status backgrounds */
   --bg-status-applied-: #eff8ff;
@@ -59,7 +74,7 @@
   --padding-form: var(--padding-containers);
 
   /* Button colors */
-  --btn-color-ligth: #f6f9fc;
+  --btn-color-light: #f6f9fc;
   --btn-color-dark: #1c1c1c;
   --btn-color-1: #fc3fd9;
   --btn-color-2: #fffa01;
@@ -69,6 +84,10 @@
 
 :where(body, h1, h2, h3, p) {
   margin: 0;
+}
+
+main {
+  background-attachment: fixed;
 }
 
 p {

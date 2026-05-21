@@ -1,22 +1,21 @@
-.btn {
+.btnjj {
   border: none;
   border-radius: var(--radius-lg);
   padding: var(--padding-buttons);
   font-size: 1rem;
   cursor: pointer;
 
-  &.btn-primary {
+  &.btnjj-primary {
     background-color: var(--btn-color-1);
-    color: var(--text-ligth);
+    color: var(--text-light);
 
     &:hover {
       background-color: var(--btn-color-dark);
     }
   }
 
-  &.btn-secondary {
-    color: var(--text-dark);
-    border: 1px solid var(--btn-color-dark);
+  &.btnjj-secondary {
+    color: var(--text-light);
 
     &:hover {
       background-color: var(--btn-color-dark);

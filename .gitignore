@@ -39,5 +39,5 @@ logs/
 
 # --- EXTRAS DEL PROYECTO (Opcional) ---
 # Si no quieres compartir tus copias de seguridad de SQL o notas personales
-*.sql
+.sql
 chuleta.txt
