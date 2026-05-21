@@ -26,7 +26,9 @@ const CompanyProfilePage = lazy(
 
 //Páginas privadas de candidato
 import { CandidateLayout } from '../layouts/CandidateLayout';
-import CandidateProfilePage from '../pages/UserPages/CandidateProfilePage/CandidateProfilePage';
+const CandidateProfilePage = lazy(
+  () => import('../pages/UserPages/CandidateProfilePage/CandidateProfilePage')
+);
 
 //Páginas privadas de company
 import { CompanyLayout } from '../layouts/CompanyLayout';
@@ -56,7 +58,7 @@ export const AppRoutes = () => {
             <Route element={<CandidateLayout />}>
               {
                 <Route
-                  path="/candidateProfile"
+                  path="/candidateProfile/:id"
                   element={<CandidateProfilePage />}
                 />
               }

@@ -1,136 +1,161 @@
-import { useContext, useState } from 'react';
-
-import './candidateProfilePage.css';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router';
 import { AuthContext } from '../../../context/AuthContext';
 
+import userDefault from '../../../assets/userDefault.jpg';
+import './candidateProfilePage.css';
+
 const CandidateProfilePage = () => {
-  const { user } = useContext(AuthContext);
+  // Extraemos los datos del authcontext
+  const { user, experience, study, language, offer, user_offer } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
     <>
-      <article>
-        <div>
-          <h2>Mi perfil</h2>
-          <p>
-            Completa tu perfil para mejorar tu visibilidad y facilitar que las
-            empresas te encuentren.
-          </p>
-          <button>Guardar Cambios</button>
-        </div>
-      </article>
-      <article>
-        <div>
-          <img src="" alt="" />
+      <div className="profile-candidate">
+        <section>
           <div>
-            <h4>Nombre: Nombre apellido</h4>
-            <span>En busca de empleo</span>
-            <span>Telefono:</span>
-            <span>Email:</span>
+            <img className="logo-profile" src="../../../assets/logo.svg" />
           </div>
-          <div>
-            <button>Editar perfil</button>
-          </div>
-        </div>
-      </article>
-      <div>
-        <article>
-          <div>
-            <h4>Acerca de mí</h4>
-            <p>
-              Desarrollador junior orientado al frontend y al desarrollo
-              full-stack, con experiencia en React, Node.js y MySQL. Me interesa
-              seguir creciendo en entornos donde pueda participar en proyectos
-              reales, mejorar la experiencia de usuario y aportar una base
-              técnica sólida.
-            </p>
-          </div>
-        </article>
-        <article>
-          <div>
-            <h4>Experiencia</h4>
-            <button>Editar</button>
+          <h4>{user?.name}</h4>
+          <button>perfil</button>
+          <button>candidaturas</button>
+          <button>ajustes</button>
+        </section>
+
+        <section>
+          <article>
             <div>
-              <span>Prácticas de desarrollo</span>
-              <p>Proyecto portfolio personal</p>
+              <h2>Mi perfil</h2>
               <p>
-                Desarrollo de aplicaciones web con React, formularios dinámicos,
-                integración con APIs y persistencia en MySQL.
+                Completa tu perfil para mejorar tu visibilidad y facilitar que
+                las empresas te encuentren.
               </p>
+              <button>Guardar Cambios</button>
             </div>
-            <button>agrega con icono de +</button>
-          </div>
-        </article>
-        <article>
+          </article>
+          {/* TARJETA PRINCIPAL DEL USUARIO */}
+          <article>
+            <div>
+              <img
+                className="profile-img"
+                src={
+                  user?.avatar
+                    ? `${import.meta.env.VITE_SERVER_IMAGES_URL}/user/${user.avatar}`
+                    : userDefault
+                }
+              />
+              <div>
+                <h4>
+                  Nombre: {user?.name} {user?.lastname}
+                </h4>
+                <span>En busca de empleo</span>
+                <span>
+                  Teléfono: {user?.phone_number || 'No especificado'}{' '}
+                </span>
+                <span>Email: {user?.email}</span>
+              </div>
+              <div>
+                <button>Editar perfil</button>
+              </div>
+            </div>
+          </article>
+          {/* DETALLES DEL CANDIDATO */}
           <div>
-            <h4>Educacion</h4>
-            <button>editar</button>
-            <div>
-              <span>Bootcamp Full-Stack Development</span>
-              <p>hshshsdgs</p>
-              <p>
-                React, Node.js, bases de datos relacionales, APIs REST y
-                metodologías de desarrollo.
-              </p>
-            </div>
+            <article>
+              <div>
+                <h4>Acerca de mí</h4>
+                <p>{user?.about_me || 'Sin descripción disponible.'}</p>
+              </div>
+            </article>
+            <article>
+              <div>
+                <h4>Experiencia</h4>
+                <button>Editar</button>
+                <div>
+                  <span>
+                    {experience?.title || 'Sin experiencia registrada'}
+                  </span>
+                  <p>
+                    {experience?.start_month_year} {experience?.end_month_year}
+                  </p>
+                  <p>{experience?.description}</p>
+                </div>
+                <button>+ Agregar experiencia</button>
+              </div>
+            </article>
+            <article>
+              <div>
+                <h4>Educación</h4>
+                <button>Editar</button>
+                <div>
+                  <span>{study?.studies || 'Sin educación registrada'}</span>
+                  <p>
+                    {study?.start_month_year} {study?.end_month_year}
+                  </p>
+                  <p>{study?.description}</p>
+                </div>
+              </div>
+            </article>
           </div>
-        </article>
-      </div>
-      <div>
-        <article>
+
           <div>
-            <h4>¿Estas buscando empleo?</h4>
-            <span>Estado actual</span>
-            <p>
-              Si no indicas que buscas empleo activamente tu usuario no saldrá
-              en la búsqueda de las empresas
-            </p>
+            <article>
+              <div>
+                <h4>¿Estas buscando empleo?</h4>
+                <span>{user_offer?.status || 'No especificado'}</span>
+                <p>
+                  Si no indicas que buscas empleo activamente tu usuario no
+                  saldrá en la búsqueda de las empresas
+                </p>
+              </div>
+            </article>
+            <article>
+              <div>
+                <div>
+                  <h4>CV y portafolio</h4>
+                  <span>CV subido</span>
+                </div>
+                <div>
+                  <span>Curriculum Vitae</span> <button>Ver Cv</button>
+                </div>
+                <div>
+                  <button>Subir nuevo CV</button>
+                </div>
+                <hr />
+                <span>Portfolio</span>
+                <a href={user?.portfolio_url || '#'}>linkedlink</a>
+              </div>
+            </article>
+            <article>
+              <div>
+                <h4>Preferencias</h4>
+                <div>
+                  <span>Modalidad</span>
+                  <span>{offer?.modality || 'No especificada'}</span>
+                </div>
+                <div>
+                  <span>Ubicación</span>
+                  <span>{user?.location_pref || 'No especificada'}</span>
+                </div>
+                <div>
+                  <span>Jornada</span>
+                  <span>{user?.modality || 'No especificada'}</span>
+                </div>
+              </div>
+            </article>
+            <article>
+              <div>
+                <h4>Idiomas</h4>
+                <div>
+                  <span>{language?.name || 'No especificado'}</span>
+                  <span>{language?.level}</span>
+                </div>
+              </div>
+            </article>
           </div>
-        </article>
-        <article>
-          <div>
-            <div>
-              <h4>CV y portafolio</h4>
-              <span>CV subido</span>
-            </div>
-            <div>
-              <span>Curriculum Vitae</span> <button>Ver Cv</button>
-            </div>
-            <div>Subir nuevo CV</div>
-            <hr />
-            <span>Portfolio</span>
-            <a href="">linkedlink</a>
-          </div>
-        </article>
-        <article>
-          <div>
-            <h4>Preferencias</h4>
-            <div>
-              <span>Modalidad</span>
-              <span>Remoto</span>
-            </div>
-            <div>
-              <span>Ubicacion</span>
-              <span>Remoto</span>
-            </div>
-            <div>
-              <span>Jornada</span>
-              <span>Remoto</span>
-            </div>
-          </div>
-        </article>
-        <article>
-          <div>
-            <h4>Idiomas</h4>
-            <div>
-              <span>Español</span>
-              <span>Nativo</span>
-            </div>
-            <div>
-              <span>Español</span>
-              <span>Nativo</span>
-            </div>
-          </div>
-        </article>
+        </section>
       </div>
     </>
   );
