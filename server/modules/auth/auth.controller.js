@@ -91,6 +91,7 @@ class AuthController {
       ];
     }
       const result = await authDal.register(values,type);
+      sendEmail(name, lastname, email)
       res.status(200).json({message: 'Usuario registrado corréctamente'});
     } catch (error) {
       res.status(500).json(error);
