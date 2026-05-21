@@ -21,8 +21,8 @@ export const NavBarPublic = () => {
           </Nav.Link>
         </Nav>
         <div>
-          <Button onClick={() => navigate('/register')}>Register</Button>
-          <Button onClick={() => navigate('/login')}>Login</Button>
+          <Button onClick={() => navigate('/register')} variant="primary">Register</Button>
+          <Button onClick={() => navigate('/login')} variant="secondary">Login</Button>
         </div>
       </Container>
     </Navbar>
