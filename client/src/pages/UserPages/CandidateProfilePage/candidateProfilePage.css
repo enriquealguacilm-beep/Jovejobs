@@ -1,0 +1,14 @@
+.profile-candidate {
+  background-image: var(--gradient-admin);
+
+  .profile-img {
+    block-size: 120px;
+    inline-size: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .logo-profile {
+    inline-size: 50px;
+  }
+}
