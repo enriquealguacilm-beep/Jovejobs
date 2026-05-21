@@ -20,10 +20,12 @@ const RegisterCompanyPage = lazy(
 
 //Páginas privadas de candidato
 import { CandidateLayout } from '../layouts/CandidateLayout';
+const CandidateProfilePage = lazy(
+  () => import('../pages/UserPages/CandidateProfilePage/CandidateProfilePage')
+);
 
 //Páginas privadas de candidato
 import { CompanyLayout } from '../layouts/CompanyLayout';
-import CandidateProfilePage from '../pages/UserPages/CandidateProfilePage/CandidateProfilePage';
 
 export const AppRoutes = () => {
   return (
@@ -48,14 +50,21 @@ export const AppRoutes = () => {
           {/* Rutas privadas user Candidato */}
           <Route element={<PrivateRoutes />}>
             <Route element={<CandidateLayout />}>
-              {<Route path='/candidateProfile' element={<CandidateProfilePage />} />}
+              {
+                <Route
+                  path="/candidateProfile/:id"
+                  element={<CandidateProfilePage />}
+                />
+              }
             </Route>
           </Route>
           {/* Rutas privadas user Empresa */}
           <Route element={<PrivateRoutes />}>
-            <Route element={<CompanyLayout />}>{
-              // <Route path='/company' element={}/>
-            }</Route>
+            <Route element={<CompanyLayout />}>
+              {
+                // <Route path='/company' element={}/>
+              }
+            </Route>
           </Route>
         </Routes>
       </Suspense>
