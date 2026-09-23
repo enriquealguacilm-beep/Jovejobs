@@ -1,4 +1,3 @@
-JoveJobs
 JoveJobs is a full-stack job platform created to connect candidates and companies through a structured digital environment for job opportunities and profile management.
 
 The application is designed around different user roles, providing tailored experiences for public visitors, candidates, companies, and administrators. It brings together the main elements of a recruitment platform: user authentication, role-based access, profile management, job-offer functionality, form validation, and database-driven data management.
